@@ -1,0 +1,85 @@
+
+<%= render :partial => 'spree/admin/shared/order_sub_menu' %>
+
+<h1><%= t("listing_subscriptions") %></h1>
+
+<table class="index">
+  <thead>
+    <tr>
+      <th><%= sort_link @search, :created_at, t("order_date") %></th>
+      <th><%= sort_link @search, :id,         t("subscription_number") %></th>
+      <th><%= sort_link @search, :state,      t("status") %></th>
+      <th><%= sort_link @search, :user_email, t("customer") %></th>
+      <th><%= sort_link @search, :start_date, t("start_date") %></th>
+      <th><%= sort_link @search, :end_date,   t("end_date") %></th>
+      <th><%= sort_link @search, :total,      t("total") %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @subscriptions.each do |subscription| %>
+    <tr>
+      <td><%= subscription.created_at.to_date %></td>
+      <td><%= link_to subscription.id, edit_object_url(subscription) %></td>
+      <td><%= t(subscription.state.downcase) %></td>
+      <td><%= subscription.user.email %></td>
+      <td><%= subscription.start_date.nil? ? "-" : subscription.start_date.to_date  %></td>
+      <td><%= subscription.end_date.nil? ? "-" : subscription.end_date.to_date  %></td>
+      <td><%= number_to_currency subscription.variant.price %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= paginate @subscriptions %>
+        
+<% content_for :sidebar do %>      
+<div class="box">
+  <h3><%= t(:search) %></h3>
+
+  <%= form_for [:admin, @search] do |f| %>
+		
+		<h4 style="margin:0;"><%= t("order_date") %></h4>
+		<p>
+			<%= f.label :created_at_greater_than, t(:start) %>:
+			<%= f.text_field :created_at_greater_than, :class => 'datepicker' %>
+		</p>
+		<p>
+			<%= f.label :created_at_less_than, t(:stop) %>:
+			<%= f.text_field :created_at_less_than, :class => 'datepicker' %>
+		</p>
+
+		<h4 style="margin:0;"><%= t("start_date") %></h4>
+		<p>
+			<%= f.label :start_date_greater_than, t(:start) %>:
+			<%= f.text_field :start_date_greater_than, :class => 'datepicker' %>
+		</p>
+		<p>
+			<%= f.label :start_date_less_than, t(:stop) %>:
+			<%= f.text_field :start_date_less_than, :class => 'datepicker' %>
+		</p>
+
+		<h4 style="margin:0;"><%= t("end_date") %></h4>
+		<p>
+			<%= f.label :end_date_greater_than, t(:start) %>:
+			<%= f.text_field :end_date_greater_than, :class => 'datepicker' %>
+		</p>
+		<p>
+			<%= f.label :end_date_less_than, t(:stop) %>:
+			<%= f.text_field :end_date_less_than, :class => 'datepicker' %>
+		</p>
+
+    <p><label><%= t("status") %></label><br />
+    <%#= f.select_equals :state, Subscription.state_machines[:state].states.collect {|s| [t(s.name), s.value]}, {:include_blank => true} %></p>
+
+    <p><label><%= t 'subscription_number' %></label><br />
+    <%#= f.text_field :id_contains, :size=>25 %></p>
+
+    <p>
+      <label><%= t 'email' %></label><br />
+      <%= f.text_field :user_email_contains, :size=>25 %>
+    </p>
+    <p>
+
+    <p><%= button t("search") %></p>
+  <% end %>
+</div>
+<% end %>

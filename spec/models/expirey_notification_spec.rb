@@ -1,13 +1,13 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 module Spree
-	describe Subscription do
+	describe ExpiryNotification do
 	  before(:each) do
-	    @subscription = Subscription.new
+	    @expiry_notification = ExpiryNotification.new
 	  end
 
 	  it "should be valid" do
-	    @subscription.should be_valid
+	    @expiry_notification.should be_valid
 	  end
 	end
 end

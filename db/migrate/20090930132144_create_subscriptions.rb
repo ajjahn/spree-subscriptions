@@ -1,6 +1,6 @@
 class CreateSubscriptions < ActiveRecord::Migration
   def self.up
-    create_table :subscriptions do |t|
+    create_table :spree_subscriptions do |t|
       t.date :start_date
       t.date :end_date
 			t.integer :duration
@@ -13,6 +13,6 @@ class CreateSubscriptions < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :subscriptions
+    drop_table :spree_subscriptions
   end
 end

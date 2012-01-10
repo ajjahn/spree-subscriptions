@@ -1,6 +1,6 @@
 class CreateExpiryNotifications < ActiveRecord::Migration
   def self.up
-    create_table :expiry_notifications do |t|
+    create_table :spree_expiry_notifications do |t|
 			t.integer :subscription_id
 			t.integer	:interval
       t.timestamps
@@ -8,6 +8,6 @@ class CreateExpiryNotifications < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :expiry_notifications
+    drop_table :spree_expiry_notifications
   end
 end
