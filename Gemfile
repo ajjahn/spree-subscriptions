@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem 'spree_core', :path => '../../Greyhouse Online Store/spree/core'
+
 group :test do
   gem 'ffaker'
 end
